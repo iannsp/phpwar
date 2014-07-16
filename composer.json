@@ -1,0 +1,19 @@
+{
+    "name": "iannsp/phpwar",
+    "description": "code battle with php",
+    "license": "GPL V3",
+    "authors": [
+        {
+            "name": "Ivo Nascimento",
+            "email": "iannsp@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload":
+    {
+        "psr-4": {"":"src/"}
+    }
+
+}
