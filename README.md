@@ -45,4 +45,8 @@ The playgame.php file is a sample about how to configure and set the game. It al
  1  1  0  1  0  0  1  1  0  . 
  .  1  .  .  .  1  0  1  1  1 
  1  .  .  1  0  0  .  1  1  1 
+ 
+ Result
+ Player 0 has 28 position(s).
+ Player 1 has 69 position(s).
 </pre>    

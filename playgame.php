@@ -32,4 +32,9 @@ while($moves < 100){
     $moves++;
 }
 
-var_dump($arena->stats());
+echo "\nResult\n";
+$stats = $arena->stats();
+foreach ($stats as $id=>$stat){
+    if ($id!=='.')
+    echo "Player {$id} has {$stat} position(s).\n";
+}
