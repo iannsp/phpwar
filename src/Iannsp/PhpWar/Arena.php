@@ -5,6 +5,10 @@ class Arena
 {
     private $dimension = array();
     private $arena = array();
+    private $playAnalizes = array(
+        'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Hit',
+        'Neibor'=>'\\Iannsp\PhpWar\\Game\\Score\\Neibor',
+    );
     public function __construct($width=4, $height=4)
     {
         $this->dimension['width']  = $width;
@@ -17,6 +21,9 @@ class Arena
             for($y=0; $y< $this->dimension['height']; $y++)
                 $this->arena[$x][$y]='.'; 
         }
+        foreach ($this->playAnalizes as $name=> $pAnalize){
+            $this->playAnalizes[$name]= new $pAnalize($this);
+        }
     }
     public function getHeight()
     {
@@ -28,12 +35,31 @@ class Arena
         return $this->dimension['width'];
     }
     public function setMove($id, Move $move)
-    {
+    {  $result = true;
+        foreach ($this->playAnalizes as $analize){
+            if (!$analize->analyze($id, $move)){
+                return false;
+            }
+        }
        $m = $move->getCoordenates();
        $this->arena[$m['x']][$m['y']]= $id; 
+       return true;
     }
     public function getArena()
     {
         return $this->arena;
+    }
+    public function stats()
+    {
+        $result = array();
+        foreach($this->arena as $line){
+            $values = array_count_values($line);
+            foreach ($values as $id => $total){
+                if (!array_key_exists($id, $result))
+                    $result[$id]=0;
+                $result[$id] += (int)$total;
+            }
+        } 
+        return $result;
     }
 }
