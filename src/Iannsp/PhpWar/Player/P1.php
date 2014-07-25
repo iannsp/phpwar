@@ -5,15 +5,17 @@ use \Iannsp\PhpWar\Arena as Arena;
 
 class P1 implements playerInterface
 {
-    private $arena;
-    public function __construct(Arena $arena)
+    private $arenaWidth  = 0;
+    private $arenaHeight = 0;
+    public function __construct($width, $height)
     {
-        $this->arena = $arena;
+        $this->arenaWidth  = $width;
+        $this->arenaHeight = $height;
     }
     public function play()
     {
-        $arenaHeight = $this->arena->getHeight();
-        $arenaWidth  = $this->arena->getWidth();
+        $arenaHeight = $this->arenaHeight;
+        $arenaWidth  = $this->arenaWidth;
        return new move(rand(0, $arenaHeight), rand(0,$arenaWidth)); 
     }
 }
