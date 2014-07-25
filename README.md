@@ -35,6 +35,13 @@ At this moment you control the number of game rounds. The next step is develop t
 The playgame.php file is a sample about how to configure and set the game. It already print(bash) the game result, like this: 
 
 <pre>
+    _____  _    _ _____   __          __        
+   |  __ \| |  | |  __ \  \ \        / /        
+   | |__) | |__| | |__) |  \ \  /\  / /_ _ _ __ 
+   |  ___/|  __  |  ___/    \ \/  \/ / _` | '__|
+   | |    | |  | | |         \  /\  / (_| | |   
+   |_|    |_|  |_|_|          \/  \/ \__,_|_|   
+
  0  .  1  .  1  1  0  1  0  0 
  0  1  0  1  .  0  1  1  0  1 
  .  .  .  0  1  1  1  0  1  . 
