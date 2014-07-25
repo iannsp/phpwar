@@ -1,9 +1,7 @@
 <?php
 require 'bootstrap.php';
-$arena = new Iannsp\PhpWar\Arena(15,15);
+$arena = new Iannsp\PhpWar\Arena(10,10);
 $players = array (
-new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
-new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
 );
