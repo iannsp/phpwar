@@ -18,6 +18,11 @@ class P1 implements playerInterface
         $arenaWidth  = $this->arenaWidth;
        return new move(rand(0, $arenaHeight), rand(0,$arenaWidth)); 
     }
+    
+    public function feedback($status)
+    {
+     // use it to stat you play strategy.   
+    }
 }
 
 

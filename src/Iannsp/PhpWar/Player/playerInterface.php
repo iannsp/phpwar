@@ -8,5 +8,10 @@ interface playerInterface
 * @return \Iannsp\PhpWar\Move
 */
     public function play();
+    
+/**
+*  @return boolean
+*  true if win the position, false if lose. 
+*/    public function feedback($status);
 }
 
