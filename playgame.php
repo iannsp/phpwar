@@ -1,9 +1,11 @@
 <?php
 require 'bootstrap.php';
-$arena = new Iannsp\PhpWar\Arena();
+$arena = new Iannsp\PhpWar\Arena(15,15);
 $players = array (
-new Iannsp\PhpWar\Player\P1($arena),
-new Iannsp\PhpWar\Player\P1($arena)
+new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
+new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
+new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
+new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
 );
 $game = new Iannsp\PhpWar\Game($arena, $players);
 
@@ -26,8 +28,10 @@ print chr(27) . "[2J" . chr(27) . "[;H";
 
 echo "runing a game\n";
 $moves = 0;
-while($moves < 30){
+while($moves < 100){
     $game->round();
     render($game, $arena, $players);
     $moves++;
 }
+
+var_dump($arena->stats());
