@@ -17,7 +17,7 @@ class Game
         foreach ($this->warriors as $wIdx => $warrior)
         {
             $move = $warrior->play();
-            $this->arena->setMove($wIdx, $move);
+            $warrior->feedback($this->arena->setMove($wIdx, $move));
         }
     }
 }
