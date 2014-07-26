@@ -5,14 +5,12 @@ class Arena
 {
     private $dimension = array();
     private $arena = array();
-    private $playAnalizes = array(
-        'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Hit',
-        'Neibor'=>'\\Iannsp\PhpWar\\Game\\Score\\Neibor',
-    );
-    public function __construct($width=4, $height=4)
+    private $playAnalizes = array();
+    public function __construct($width=4, $height=4, array $scoreStrategy = array())
     {
         $this->dimension['width']  = $width;
         $this->dimension['height'] = $height;
+        $this->playAnalizes = $scoreStrategy;
         $this->bootstrap();
     }
     private function bootstrap()
