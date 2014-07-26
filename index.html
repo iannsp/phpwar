@@ -31,39 +31,132 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
+<pre style="background-color:inherit !important; box-shadow:none !important;">
+               _____  _    _ _____   __          __        
+              |  __ \| |  | |  __ \  \ \        / /        
+              | |__) | |__| | |__) |  \ \  /\  / /_ _ _ __ 
+              |  ___/|  __  |  ___/    \ \/  \/ / _` | '__|
+              | |    | |  | | |         \  /\  / (_| | |   
+              |_|    |_|  |_|_|          \/  \/ \__,_|_|
+              
+          </pre>
         <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span>Programming Your Player.</a></h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>PHP War is a game where you put your code to play.</p>
+<p>You develop a Player and go to the arena to test your algorithm. The winner is that one with more warriors in the arena when the last round finish.</p>
+<p>Here the simplest Player your can create</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<pre><code>namespace Iannsp\PhpWar\Player;
+use Iannsp\PhpWar\Move as move;
+use \Iannsp\PhpWar\Arena as Arena;
+
+class SimplestPlayer implements <a title='2 methods interface ;)' href='https://github.com/iannsp/phpwar/blob/master/src/Iannsp/PhpWar/Player/playerInterface.php'>playerInterface</a>
+{
+    private $arenaWidth  = 0;
+    private $arenaHeight = 0;
+    public function __construct($width, $height)
+    {
+        $this->arenaWidth  = $width;
+        $this->arenaHeight = $height;
+    }
+    public function play()
+    {
+        $arenaHeight = $this->arenaHeight;
+        $arenaWidth  = $this->arenaWidth;
+        // random strategy. Simple, aren't it? 
+       return new move(rand(0, $arenaHeight), rand(0,$arenaWidth)); 
+    }
+    
+    public function feedback($status)
+    {
+     /* 
+      use it to stat you play strategy, like save the result status
+      of your move (win|lose), the positions of your warrior and...
+      well, put your win algoritm here. ;)
+     */
+    }
+}
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>
+<a name="the-arena" class="anchor" href="#the-arena">The Arena<span class="octicon octicon-link"></span></a></h3>
+
+<p>The arena is a simple board you need domanite through puting warriors to conquest the oponent.</p>
+<p>There is to situations:</p>
+<ol>
+    <li><strong>Hit a position</strong><p>When you play the move(1,1) and the position 1,1 is empty, so you win the position. If position 1,1 has an opponent then you win the position plus reduce the army of your opponent.</p> </li>
+    <li><strong>Hit a position with neighbors</strong><p>When you play the move(1,1) and the position 1,1 has neighbors. In this case the game analize the neighborhood, know the players and the number of warriors each one has. If your opponent army in the neighborhood is bigger the your, you lose. :(</p> </li>
+</ol>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="howtoplay" class="anchor" href="#howtoplay"><span class="octicon octicon-link"></span>How to Play?</a></h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>You need to put your Player into a game, of course. And its simple. Indeed you find a sample of how to do this in <a href='https://github.com/iannsp/phpwar/blob/master/playgame.php'>playgame.php</a></p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>Let me introduce you to the playgame.php script</p>
+<pre><code>
+require 'bootstrap.php';
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+// you can choose what strategies you going to use to score in your game. 
+// There is this two, will be more, I guarantee.
 
+$scoreStrategy = array(
+    'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Hit',
+    'Neibor'=>'\\Iannsp\PhpWar\\Game\\Score\\Neibor',
+);
+
+// create the arena. 
+// You can set the dimension of the area as big or small you like.
+// I realize your play strategi depends of this.
+
+$arena = new Iannsp\PhpWar\Arena(10,10, $scoreStrategy);
+
+// This is a case when you play against yourself. ;) yes, you can.
+$players = array (
+new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
+new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
+);
+
+// finally, the game
+$game = new Iannsp\PhpWar\Game($arena, $players);
+
+// please take a look int he playgame.php to see this function.
+// it render in the bash terminal the status of the arena.
+
+function render($game, $arena, $players)
+{
+ //...
+}
+
+// runing how many rounds your prefer. 
+// The next improve to the game is run rounds until find a winner 
+// (dominate all positions in the arena).
+
+echo "runing a game\n";
+$moves = 0;
+while($moves < 100){
+    $game->round();
+    render($game, $arena, $players);
+    $moves++;
+}
+
+echo "
+ 
+                                              
+    \nResult\n";
+// here you got the stats of the game and know the score.
+$stats = $arena->stats();
+foreach ($stats as $id=>$stat){
+    if ($id!=='.')
+    echo "Player {$id} has {$stat} position(s).\n";
+}
+</code></pre>
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
+<p>This game is in the beginning, and I like to invite you to become part of it.</p>
+<p>For now there is just me <a href="https://ivonascimento.wordpress.com" target="_blank" class="user-mention">Ivo Nascimento</a></p>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
