@@ -28,15 +28,22 @@ class Neibor
             $warPlace[$x][$y-1], // center bootom 
             $warPlace[$x+1][$y-1] // right bottom 
         );
+//        foreach ($warPlace as $place){var_dump(implode('', $place));};
         $rEnd = array();
         foreach ($result as $idx=>$r){
             if (!is_null($r))
                 $rEnd[] = $r;
         }
         $count = array_count_values($rEnd);
+        asort($count);
+        unset($count['.']);
+        if (count($count)==0)
+            return true;
         $dominanteId    = key($count);
         $dominanteCount = array_shift($count);
         if ($dominanteId==$playerName || $dominanteId=='.')
+            return true;
+        if($dominanteCount ==1)
             return true;
         return false;
     }
