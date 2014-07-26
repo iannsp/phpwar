@@ -8,8 +8,8 @@
             "email": "iannsp@gmail.com"
         }
     ],
-    "require": {
-        "phpunit/phpunit": "*"
+    "require-dev": {
+        "phpunit/phpunit": "~4.1"
     },
     "autoload":
     {
