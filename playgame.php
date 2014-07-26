@@ -7,7 +7,7 @@ $scoreStrategy = array(
 $arena = new Iannsp\PhpWar\Arena(10,10, $scoreStrategy);
 $players = array (
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
-new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
+new Iannsp\PhpWar\Player\P2($arena->getWidth(), $arena->getHeight())
 );
 $game = new Iannsp\PhpWar\Game($arena, $players);
 
