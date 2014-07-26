@@ -1,6 +1,10 @@
 <?php
 require 'bootstrap.php';
-$arena = new Iannsp\PhpWar\Arena(10,10);
+$scoreStrategy = array(
+    'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Hit',
+    'Neibor'=>'\\Iannsp\PhpWar\\Game\\Score\\Neibor',
+);
+$arena = new Iannsp\PhpWar\Arena(10,10, $scoreStrategy);
 $players = array (
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
