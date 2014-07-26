@@ -1,5 +1,7 @@
 <?php
 
+use Iannsp\PhpWar\Geometry\Cartesian;
+
 class ResultsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -9,10 +11,15 @@ class ResultsTest extends \PHPUnit_Framework_TestCase
     {
         $arenaWidth = 10;
         $arenaHeight = 10;
-        $arena = new Iannsp\PhpWar\Arena($arenaWidth, $arenaHeight);
+        $arenaLimits = new Cartesian\Point($arenaWidth, $arenaHeight);
+        $scoreStrategy = array(
+            'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Hit',
+            'Neibor'=>'\\Iannsp\PhpWar\\Game\\Score\\Neibor',
+        );
+        $arena = new Iannsp\PhpWar\Arena($arenaLimits, $scoreStrategy);
         $players = array (
-            new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
-            new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
+            new Iannsp\PhpWar\Player\P1($arena->getLimits()),
+            new Iannsp\PhpWar\Player\P1($arena->getLimits())
         );
         $game = new Iannsp\PhpWar\Game($arena, $players);
         $moves = 0;
