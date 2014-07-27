@@ -1,37 +1,38 @@
 <?php
 namespace Iannsp\PhpWar;
+
 use \Iannsp\PhpWar\Move as Move;
+use Iannsp\PhpWar\Geometry;
+
 class Arena
 {
-    private $dimension = array();
+    private $dimension = null;
     private $arena = array();
     private $playAnalizes = array();
-    public function __construct($width=4, $height=4, array $scoreStrategy = array())
+
+    public function __construct(Geometry\Cartesian\Point $arenaLimits, array $scoreStrategy = array())
     {
-        $this->dimension['width']  = $width;
-        $this->dimension['height'] = $height;
+        $this->dimension = $arenaLimits;
         $this->playAnalizes = $scoreStrategy;
         $this->bootstrap();
     }
+
     private function bootstrap()
     {
-        for ($x=0; $x<$this->dimension['width']; $x++){
-            for($y=0; $y< $this->dimension['height']; $y++)
-                $this->arena[$x][$y]='.'; 
+        for ($x=0; $x<$this->dimension->getX(); $x++){
+            for($y=0; $y< $this->dimension->getY(); $y++)
+                $this->arena[$x][$y]='.';
         }
         foreach ($this->playAnalizes as $name=> $pAnalize){
             $this->playAnalizes[$name]= new $pAnalize($this);
         }
     }
-    public function getHeight()
+
+    public function getLimits()
     {
-        return $this->dimension['height'];
+        return $this->dimension;
     }
 
-    public function getWidth()
-    {
-        return $this->dimension['width'];
-    }
     public function setMove($id, Move $move)
     {  $result = true;
         foreach ($this->playAnalizes as $analize){
@@ -40,13 +41,15 @@ class Arena
             }
         }
        $m = $move->getCoordenates();
-       $this->arena[$m['x']][$m['y']]= $id; 
+       $this->arena[$m['x']][$m['y']]= $id;
        return true;
     }
+
     public function getArena()
     {
         return $this->arena;
     }
+
     public function stats()
     {
         $result = array();
@@ -57,7 +60,7 @@ class Arena
                     $result[$id]=0;
                 $result[$id] += (int)$total;
             }
-        } 
+        }
         return $result;
     }
 }
