@@ -19,14 +19,14 @@ class Neibor
     private function calculate($x, $y, $warPlace, $playerName)
     {
         $result = array(
-            $warPlace[$x-1][$y+1], // left top corner
-            $warPlace[$x][$y+1], // center top 
-            $warPlace[$x+1][$y+1], // right top 
-            $warPlace[$x-1][$y], // left same line 
-            $warPlace[$x+1][$y], // right same line 
-            $warPlace[$x-1][$y-1], // left bottom corner
-            $warPlace[$x][$y-1], // center bootom 
-            $warPlace[$x+1][$y-1] // right bottom 
+            isset($warPlace[$x-1][$y+1]) ? $warPlace[$x-1][$y+1] : null, // left top corner
+            isset($warPlace[$x][$y+1]) ? $warPlace[$x][$y+1] : null, // center top
+            isset($warPlace[$x+1][$y+1]) ? $warPlace[$x+1][$y+1] : null, // right top
+            isset($warPlace[$x-1][$y]) ? $warPlace[$x-1][$y] : null, // left same line
+            isset($warPlace[$x+1][$y]) ? $warPlace[$x+1][$y] : null, // right same line
+            isset($warPlace[$x-1][$y-1]) ? $warPlace[$x-1][$y-1] : null, // left bottom corner
+            isset($warPlace[$x][$y-1]) ? $warPlace[$x][$y-1] : null, // center bootom
+            isset($warPlace[$x+1][$y-1]) ? $warPlace[$x+1][$y-1] : null // right bottom
         );
 //        foreach ($warPlace as $place){var_dump(implode('', $place));};
         $rEnd = array();
@@ -50,9 +50,9 @@ class Neibor
 }
 
 /*
-1,1 = 
+1,1 =
 . . .
 . 0 .
 . . .
 */
-    
+
