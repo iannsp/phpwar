@@ -31,11 +31,8 @@ print chr(27) . "[2J" . chr(27) . "[;H";
 
 
 echo "runing a game\n";
-$moves = 0;
-while($moves < 100){
-    $game->round();
+foreach ($game as $currentTurn) {
     render($game, $arena, $players);
-    $moves++;
 }
 
 echo "

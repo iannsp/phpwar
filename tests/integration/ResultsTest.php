@@ -22,10 +22,8 @@ class ResultsTest extends \PHPUnit_Framework_TestCase
             new Iannsp\PhpWar\Player\P1($arena->getLimits())
         );
         $game = new Iannsp\PhpWar\Game($arena, $players);
-        $moves = 0;
-        while($moves < 100){
-            $game->round();
-            $moves++;
+        foreach ($game as $currentTurn) {
+            // Render stuff here.
         }
 
         $stats = $arena->stats();
