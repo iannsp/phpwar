@@ -1,4 +1,4 @@
-phpwar
+phpwar [![Build Status](https://secure.travis-ci.org/iannsp/phpwar.png?branch=master)](http://travis-ci.org/iannsp/phpwar)
 ======
 
 Code War php
