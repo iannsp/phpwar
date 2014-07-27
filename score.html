@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Phpwar : code battle with php" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Phpwar</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/iannsp/phpwar">View on GitHub</a>
+
+          <h1 id="project_title">Phpwar</h1>
+          <h2 id="project_tagline">code battle with php</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/iannsp/phpwar/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/iannsp/phpwar/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<pre style="background-color:inherit !important; box-shadow:none !important;">
+               _____  _    _ _____   __          __        
+              |  __ \| |  | |  __ \  \ \        / /        
+              | |__) | |__| | |__) |  \ \  /\  / /_ _ _ __ 
+              |  ___/|  __  |  ___/    \ \/  \/ / _` | '__|
+              | |    | |  | | |         \  /\  / (_| | |   
+              |_|    |_|  |_|_|          \/  \/ \__,_|_|
+              
+          </pre>
+<h3><a name="hit" class="anchor" href="#hit"><span class="octicon octicon-link"></span>Score By Hit</a></h3>
+<p>This picture represet an Arena with 3x3 dimension. The Hit score look just the position you play. There is the rules:</p>
+<img src='images/sample.png'/>
+<p>If Red player hit an empty position, lets say... move(1,1), he win: Score+1</p>
+<img src='images/score_red_hit.png' title="Red will position by move(1,1) because position is empty" />
+<p>Than Blue player hit the same position move(1,1). We have a diferent result: Blue: Score+0, Red:Score-1 and in the end the position is blank again</p>
+<div style='float:left'><img src='images/score_red_hit.png' title="Red have play move(1,1)"/></div>
+<div style='float:left;font-size:30px;padding-top:60px;'>+</div>
+<div style='float:left'><img src='images/score_blue_hit.png' title="Blue try play move(1,1)"/></div>
+<div style='float:left;font-size:30px;padding-top:60px;'>=</div>
+<div style=' margin-left:100px'><img src='images/sample.png' title="Blue kill Red warrior but die in the process"/></div>
+
+<h3><a name="hitneibor" class="anchor" href="#hitneibor"><span class="octicon octicon-link"></span>Score By Hit with neighbors</a></h3>
+
+<p>Now you take a look in the basic, the second score analize is the Neibor Analize.</p>
+<p>It is simple: If you play a move and that position has neighbors. You need the majority or you lose.</p>
+<p>From this perspective: If Red player play move(1,1)[empty position] and have 1 blue neighbor. Red still win the positions</p>
+<div style='float:left'><img src='images/n_11.png' title="Blue has position 0,1"/></div>
+<div style='float:left;font-size:30px;padding-top:60px;'>+</div>
+<div style='float:left'><img src='images/n_11_red.png' title="Red play move(1,1)"/></div>
+<div style='float:left;font-size:30px;padding-top:60px;'>=</div>
+<div style=''><img src='images/n_11_red.png' title="Red win the position because NeighborHood is in the same number"/></div>
+
+<p>But if Red play the move(1,1) and has 2 Blue neighbor, we have</p>
+<div style='float:left'><img src='images/n_21.png' title="Blue has 2 positions"/></div>
+<div style='float:left;font-size:30px;padding-top:60px;'>+</div>
+<div style='float:left'><img src='images/n_11_red_2.png' title="Red try move(1,1)"/></div>
+<div style='float:left;font-size:30px;padding-top:60px;'>=</div>
+<div style=''><img src='images/n_21.png' title="Red lose the move because Neighbor socre rule"/></div>
+<p>Red lose the move because 2 Blue against Red.</p>
+
+
+<h3>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>This game is in the beginning, and I like to invite you to become part of it.</p>
+<p>For now there is just me <a href="https://ivonascimento.wordpress.com" target="_blank" class="user-mention">Ivo Nascimento</a></p>
+<p>If you like to send me a mail, please contact the <strong>batman</strong> at phpbr.org.</p>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Phpwar maintained by <a href="https://github.com/iannsp">iannsp</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
