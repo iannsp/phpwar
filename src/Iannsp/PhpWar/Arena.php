@@ -3,6 +3,7 @@ namespace Iannsp\PhpWar;
 
 use \Iannsp\PhpWar\Move as Move;
 use Iannsp\PhpWar\Geometry;
+use Iannsp\PhpWar\Game\Feedback;
 
 class Arena
 {
@@ -33,16 +34,27 @@ class Arena
         return $this->dimension;
     }
 
-    public function setMove($id, Move $move)
-    {  $result = true;
+    public function play($id, Move $move)
+    {   $feedback = new Feedback();
         foreach ($this->playAnalizes as $analize){
-            if (!$analize->analyze($id, $move)){
-                return false;
-            }
+            $result = $analize->analyze($id, $move);
+            $feedback->merge(Feedback::WIN, $result->getWinners());
+            $feedback->merge(Feedback::LOSE, $result->getLosers());
+            $feedback->merge(Feedback::NEUTRALIZED, $result->getNeutralizeds());
         }
+        foreach ($result->getWinners() as $winner){
+            $m = $winner->getCoordenates();
+            $this->arena[$m['x']][$m['y']]= $id;
+        }
+        foreach ($result->getNeutralizeds() as $neutralized){
+            $m = $neutralized->getCoordenates();
+            $this->arena[$m['x']][$m['y']]= '.';
+        }
+/*
        $m = $move->getCoordenates();
        $this->arena[$m['x']][$m['y']]= $id;
-       return true;
+*/
+       return $feedback;
     }
 
     public function getArena()
