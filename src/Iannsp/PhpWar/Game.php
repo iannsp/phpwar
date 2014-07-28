@@ -30,7 +30,7 @@ class Game implements \IteratorAggregate, \SplObserver
         foreach ($this->warriors as $wIdx => $warrior)
         {
             $move = $warrior->play();
-            $warrior->feedback($this->arena->setMove($wIdx, $move));
+            $warrior->feedback($this->arena->play($wIdx, $move));
         }
     }
 }

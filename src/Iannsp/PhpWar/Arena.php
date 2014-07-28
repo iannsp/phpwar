@@ -42,11 +42,11 @@ class Arena
             $feedback->merge(Feedback::LOSE, $result->getLosers());
             $feedback->merge(Feedback::NEUTRALIZED, $result->getNeutralizeds());
         }
-        foreach ($result->getWinners() as $winner){
+        foreach ($feedback->getWinners() as $winner){
             $m = $winner->getCoordenates();
             $this->arena[$m['x']][$m['y']]= $id;
         }
-        foreach ($result->getNeutralizeds() as $neutralized){
+        foreach ($feedback->getNeutralizeds() as $neutralized){
             $m = $neutralized->getCoordenates();
             $this->arena[$m['x']][$m['y']]= '.';
         }
