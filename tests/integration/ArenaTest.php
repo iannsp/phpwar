@@ -84,17 +84,20 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends arena_tiles_can_be_returned_and_inpected
      * @depends new_game_should_contain_only_empty_tiles
-     * @TODO Rename Method: `setMove` is better explained as `setPointContent`.
+     * @TODO Rename Method: `play` is better explained as `setPointContent`.
      * @TODO Extract Method: `setPointContent` should belongs to Cartesian\Plane.
      */
     public function occupation_of_a_tile_on_a_rulesless_game()
     {
         $arenaLimits = new Geometry\Cartesian\Point(4, 4);
-        $arena = new Arena($arenaLimits);
+        $scoreStrategy = array(
+            'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Neibor'
+        );
+        $arena = new Arena($arenaLimits, $scoreStrategy);
         $tileToBeOccupied = new Move(0,1);
         $alice = 'A';
 
-        $arena->setMove($alice, $tileToBeOccupied);
+        $arena->play($alice, $tileToBeOccupied);
         $gameCurrentStatus = $arena->stats();
         $this->assertCount(
             2,
@@ -128,15 +131,18 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
      * @depends arena_tiles_can_be_returned_and_inpected
      * @depends occupation_of_a_tile_on_a_rulesless_game
      */
-    public function position_already_occupied_is_overwriten_when_other_player_tried_to_occupy_it()
+    public function position_already_occupied_is_neutralized_when_other_player_tried_to_occupy_it()
     {
+        $rules = array(
+            'Hit' => 'Iannsp\\PhpWar\\Game\\Score\\Hit'
+        );
         $arenaLimits = new Geometry\Cartesian\Point(4, 4);
-        $arena = new Arena($arenaLimits);
+        $arena = new Arena($arenaLimits, $rules);
         $disputedTile = new Move(0,1);
         $alice = 'A';
         $bob = 'B';
 
-        $arena->setMove($alice, $disputedTile);
+        $arena->play($alice, $disputedTile);
         $tiles = $arena->getArena();
         $this->assertEquals(
             $alice,
@@ -144,12 +150,12 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
             'Alice should be occupying the tile where she moved in.'
         );
 
-        $arena->setMove($bob, $disputedTile);
+        $arena->play($bob, $disputedTile);
         $tiles = $arena->getArena();
         $this->assertEquals(
-            $bob,
+            '.',
             $tiles[0][1],
-            'Bob should be occupying the tile, as he moved there after Alice.'
+            'Bob should be neutralized the tile, as he moved there after Alice.'
         );
     }
 
@@ -157,7 +163,7 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends arena_tiles_can_be_returned_and_inpected
      * @depends new_game_should_contain_only_empty_tiles
-     * @depends position_already_occupied_is_overwriten_when_other_player_tried_to_occupy_it
+     * @depends position_already_occupied_is_neutralized_when_other_player_tried_to_occupy_it
      */
     public function rule_of_hit_is_applied_allowing_an_occupied_tile_to_be_taken_by_another_player()
     {
@@ -170,7 +176,7 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
         $alice = 'A';
         $bob = 'B';
 
-        $arena->setMove($alice,$move);
+        $arena->play($alice,$move);
         $tiles = $arena->getArena();
         $this->assertEquals(
             $alice,
@@ -178,12 +184,12 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
             'Alice moved to that tile, so it should be hers.'
         );
 
-        $arena->setMove($bob,$move);
+        $arena->play($bob,$move);
         $tiles = $arena->getArena();
         $this->assertEquals(
-            $bob,
+            '.',
             $tiles[0][1],
-            'Bob moved to the tile occipied by Alice, therefore it should be his now.'
+            'Bob moved to the tile occipied by Alice, therefore it is neutralized now.'
         );
     }
 
@@ -204,25 +210,25 @@ class ArenaTest extends \PHPUnit_Framework_TestCase
         $alice = 'A';
         $bob = 'B';
 
-        $this->assertTrue(
-            $arena->setMove($alice, new Move(0,1)),
+        $this->assertCount(1,
+            $arena->play($alice, new Move(0,1))->getWinners(),
             'Alice should be able to move to an uncoppied tile.'
         );
-        $this->assertTrue(
-            $arena->setMove($alice,new Move(1,1)),
+        $this->assertCount(1,
+            $arena->play($alice,new Move(1,1))->getWinners(),
             'Alice should be able to move to an uncoppied tile.'
         );
-        $this->assertTrue(
-            $arena->setMove($alice,new Move(1,0)),
+        $this->assertCount(1,
+            $arena->play($alice,new Move(1,0))->getWinners(),
             'Alice should be able to move to an uncoppied tile.'
         );
 
-        $this->assertFalse(
-            $arena->setMove($bob,new Move(0,0)),
+        $this->assertCount(1,
+            $arena->play($bob,new Move(0,0))->getLosers(),
             'Bob can\'t move to an unocoppied tile where Alice is a nighbour. He got shot in tha face!'
         );
-        $this->assertFalse(
-            $arena->setMove($bob,new Move(1,1)),
+        $this->assertCount(1,
+            $arena->play($bob,new Move(1,1))->getLosers(),
             'Bob could occupy Alice\'s tile if it had no hostile (Alice\'s) nieghbours. He got shot in tha face, again!'
         );
     }

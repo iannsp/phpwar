@@ -1,6 +1,7 @@
 <?php
 namespace Iannsp\PhpWar\Game\Score;
-use \Iannsp\PhpWar\Arena as Arena;
+use Iannsp\PhpWar\Game\Feedback;
+use Iannsp\PhpWar\Arena as Arena;
 use Iannsp\PhpWar\Move as Move;
 
 /*
@@ -17,8 +18,18 @@ class Hit
     }
     public function analyze($playerName, Move $move)
     {
+        $feedback = new Feedback;
         $coordinates = $move->getCoordenates();
         $warPlace    = $this->arena->getArena();
-        return true;
+        if ($warPlace[$coordinates['x']][$coordinates['y']]=='.' ||
+            $warPlace[$coordinates['x']][$coordinates['y']]==$playerName
+        ){
+            $feedback->add(Feedback::WIN, $move);
+        }
+        if ($warPlace[$coordinates['x']][$coordinates['y']]!='.' && 
+            $warPlace[$coordinates['x']][$coordinates['y']]!=$playerName){
+            $feedback->add(Feedback::NEUTRALIZED, $move);
+        }
+        return $feedback;
     }
 }

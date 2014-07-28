@@ -18,8 +18,8 @@ class P1 implements playerInterface
 
     public function play()
     {
-        $arenaHeight = $this->arenaHeight;
-        $arenaWidth  = $this->arenaWidth;
+        $arenaHeight = $this->arenaHeight-1;
+        $arenaWidth  = $this->arenaWidth-1;
 
         return new Move(rand(0, $arenaHeight), rand(0,$arenaWidth));
     }
