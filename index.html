@@ -44,8 +44,8 @@
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span>Programming Your Player.</a></h3>
 
 <p>PHP War is a game where you put your code to play.</p>
-<p>You develop a Player and go to the arena to test your algorithm. The winner is that one with more warriors in the arena when the last round finish.</p>
-<p>Here the simplest Player your can create</p>
+<p>You develop a Player and go to the arena to test your algorithm. The winner is the one with more warriors in the arena when the last round finishes.</p>
+<p>Here is the simplest Player your can create</p>
 
 <pre><code>namespace Iannsp\PhpWar\Player;
 use Iannsp\PhpWar\Move as move;
@@ -64,16 +64,16 @@ class SimplestPlayer implements <a title='2 methods interface ;)' href='https://
     {
         $arenaHeight = $this->arenaHeight;
         $arenaWidth  = $this->arenaWidth;
-        // random strategy. Simple, aren't it? 
+        // random strategy. Simple, isn't it? 
        return new move(rand(0, $arenaHeight), rand(0,$arenaWidth)); 
     }
     
     public function feedback($status)
     {
      /* 
-      use it to stat you play strategy, like save the result status
+      use it to state your play strategy, like save the result status
       of your move (win|lose), the positions of your warrior and...
-      well, put your win algoritm here. ;)
+      well, put your win algorithm here. ;)
      */
     }
 }
@@ -82,24 +82,24 @@ class SimplestPlayer implements <a title='2 methods interface ;)' href='https://
 <h3>
 <a name="the-arena" class="anchor" href="#the-arena">The Arena<span class="octicon octicon-link"></span></a></h3>
 
-<p>The arena is a simple board you need domanite through puting warriors to conquest the oponent.</p>
-<p>There is to situations:</p>
+<p>The arena is a simple board you need to dominate through putting warriors up to defeat your opponent.</p>
+<p>There are two situations:</p>
 <ol>
-    <li><strong><a href='score.html#hit'>Hit a position</a></strong><p>When you play the move(1,1) and the position 1,1 is empty, so you win the position. If position 1,1 has an opponent then you win the position plus reduce the army of your opponent.</p> </li>
-    <li><strong><a href='score.html#hitneibor'>Hit a position with neighbors</a></strong><p>When you play the move(1,1) and the position 1,1 has neighbors. In this case the game analize the neighborhood, know the players and the number of warriors each one has. If your opponent army in the neighborhood is bigger the your, you lose. :(</p> </li>
+    <li><strong><a href='score.html#hit'>Hit a position</a></strong><p>When you play the move(1,1) and the position 1,1 is empty, you win the position. If position 1,1 has an opponent then you win the position as well as reducing the army of your opponent.</p> </li>
+    <li><strong><a href='score.html#hitneibor'>Hit a position with neighbors</a></strong><p>When you play the move(1,1) and the position 1,1 has neighbors. In this case the game analyzes the neighborhood, looking at the players and the number of warriors each one has. If your opponent's army in the neighborhood is bigger than yours, you lose. :(</p> </li>
 </ol>
 
 <h3>
 <a name="howtoplay" class="anchor" href="#howtoplay"><span class="octicon octicon-link"></span>How to Play?</a></h3>
 
-<p>You need to put your Player into a game, of course. And its simple. Indeed you find a sample of how to do this in <a href='https://github.com/iannsp/phpwar/blob/master/playgame.php'>playgame.php</a></p>
+<p>You need to put your Player into a game, of course. And it's simple. You can find a sample of how to do this in <a href='https://github.com/iannsp/phpwar/blob/master/playgame.php'>playgame.php</a></p>
 
 <p>Let me introduce you to the playgame.php script</p>
 <pre><code>
 require 'bootstrap.php';
 
-// you can choose what strategies you going to use to score in your game. 
-// There is this two, will be more, I guarantee.
+// you can choose what strategies you are going to use to score in your game. 
+// There are these two, but there will be more, I guarantee.
 
 $scoreStrategy = array(
     'Hit'=>'\\Iannsp\PhpWar\\Game\\Score\\Hit',
@@ -107,12 +107,12 @@ $scoreStrategy = array(
 );
 
 // create the arena. 
-// You can set the dimension of the area as big or small you like.
-// I realize your play strategi depends of this.
+// You can set the dimensions of the area as big or small you like.
+// I realize your play strategy depends on this.
 
 $arena = new Iannsp\PhpWar\Arena(10,10, $scoreStrategy);
 
-// This is a case when you play against yourself. ;) yes, you can.
+// This is the case when you play against yourself. ;) yes, you can.
 $players = array (
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight()),
 new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
@@ -121,19 +121,19 @@ new Iannsp\PhpWar\Player\P1($arena->getWidth(), $arena->getHeight())
 // finally, the game
 $game = new Iannsp\PhpWar\Game($arena, $players);
 
-// please take a look int he playgame.php to see this function.
-// it render in the bash terminal the status of the arena.
+// please take a look in the playgame.php to see this function.
+// it renders in the bash terminal the status of the arena.
 
 function render($game, $arena, $players)
 {
  //...
 }
 
-// runing how many rounds your prefer. 
-// The next improve to the game is run rounds until find a winner 
+// running how many rounds your prefer. 
+// The next improvement to the game is to run rounds until find a winner 
 // (dominate all positions in the arena).
 
-echo "runing a game\n";
+echo "running a game\n";
 $moves = 0;
 while($moves < 100){
     $game->round();
@@ -145,7 +145,7 @@ echo "
  
                                               
     \nResult\n";
-// here you got the stats of the game and know the score.
+// here you get the stats of the game and know the score.
 $stats = $arena->stats();
 foreach ($stats as $id=>$stat){
     if ($id!=='.')
@@ -155,9 +155,9 @@ foreach ($stats as $id=>$stat){
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>This game is in the beginning, and I like to invite you to become part of it.</p>
+<p>This game is in its infancy, and I like to invite you to become part of it.</p>
 <p>For now there is just me <a href="https://ivonascimento.wordpress.com" target="_blank" class="user-mention">Ivo Nascimento</a></p>
-<p>If you like to send me a mail, please contact the <strong>batman</strong> at phpbr.org.</p>
+<p>If you would like to send me a mail, please contact the <strong>batman</strong> at phpbr.org.</p>
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
