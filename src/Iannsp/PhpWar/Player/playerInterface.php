@@ -3,7 +3,7 @@ namespace Iannsp\PhpWar\Player;
 
 use Iannsp\PhpWar\Geometry\Cartesian;
 
-interface playerInterface
+interface PlayerInterface
 {
     public function __construct(Cartesian\Point $arenaeLimits);
     /**
