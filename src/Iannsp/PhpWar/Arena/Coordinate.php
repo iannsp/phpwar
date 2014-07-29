@@ -21,7 +21,7 @@ class Coordinate extends SplObjectStorage {
         foreach($axes as $i => $axis)
         {
             $value = func_get_arg($i+1) ?: 0;
-            $this[$axis] = $value;
+            $this->attach($axis, $value);
         }
     }
 
@@ -34,7 +34,17 @@ class Coordinate extends SplObjectStorage {
     {
         /** @var SplObjectStorage $coordinate */
         $coordinate = clone $this;
-        $coordinate[$axis] += $translation;
+        $coordinate[$axis] = $coordinate[$axis] + $translation;
         return $coordinate;
+    }
+
+    public function __toString()
+    {
+        $values = array();
+        foreach($this as $axis)
+        {
+            $values[] = $this[$axis];
+        }
+        return sprintf('(%s)', join(',', $values));
     }
 }

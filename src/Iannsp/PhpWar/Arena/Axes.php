@@ -165,4 +165,13 @@ class Axes implements Iterator, ArrayAccess, Countable
     {
         return count($this->axes);
     }
+
+    /**
+     * Shift an axis off front end of the collection
+     * @return Axis
+     */
+    public function shift()
+    {
+        return array_shift($this->axes);
+    }
 }

@@ -5,7 +5,6 @@ use Iannsp\PhpWar\Geometry\Cartesian;
 
 interface PlayerInterface
 {
-    public function __construct(Cartesian\Point $arenaeLimits);
     /**
      * @return \Iannsp\PhpWar\Move
      */

@@ -20,14 +20,14 @@ class Bounds {
      * @param $max int
      * @param $min int
      */
-    function __construct($max, $min)
+    function __construct($min, $max)
     {
-        if((int)$min >= (int)$max)
+        if((int)$min > (int)$max)
         {
             throw new InvalidArgumentException("Min value must be less than Max value");
         }
         $this->setMax($max);
-        $this->setMin($max);
+        $this->setMin($min);
     }
 
 
