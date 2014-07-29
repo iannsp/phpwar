@@ -87,10 +87,6 @@ class Arena implements ArenaInterface
      */
     protected function iterate(Axes $axes, SplObjectStorage &$foundAssets, &$assetsSlice)
     {
-        if($axes->count() < 1)
-        {
-            return;
-        }
         $axis = $axes->shift();
 
         foreach($axis as $index)
