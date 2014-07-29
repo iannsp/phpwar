@@ -59,7 +59,7 @@ class Turn implements \Iterator, \Countable, \SplSubject
 
     public function detach(\SplObserver $observer)
     {
-        $this->observers->detach($observers);
+        $this->observers->detach($observer);
     }
 
     public function notify()
