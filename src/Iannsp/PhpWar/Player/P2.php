@@ -5,7 +5,7 @@ use Iannsp\PhpWar\Move as move;
 use Iannsp\PhpWar\Arena as Arena;
 use Iannsp\PhpWar\Geometry\Cartesian;
 
-class P2 implements playerInterface
+class P2 implements PlayerInterface
 {
     private $arenaWidth  = 0;
     private $arenaHeight = 0;

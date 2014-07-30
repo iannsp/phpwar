@@ -5,7 +5,7 @@ namespace Iannsp\PhpWar\Player;
 use Iannsp\PhpWar\Move;
 use Iannsp\PhpWar\Geometry\Cartesian;
 
-class P1 implements playerInterface
+class P1 implements PlayerInterface
 {
     private $arenaWidth  = 0;
     private $arenaHeight = 0;

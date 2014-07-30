@@ -1,1 +1,4 @@
 /vendor/
+*.swp
+.idea/
+composer.lock
