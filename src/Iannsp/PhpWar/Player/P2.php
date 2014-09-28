@@ -9,7 +9,7 @@ class P2 implements PlayerInterface
 {
     private $arenaWidth  = 0;
     private $arenaHeight = 0;
-    private $lasw = 0;
+    private $lasW = 0;
     private $lasH  = 0;
 
     public function __construct(Cartesian\Point $limits)
