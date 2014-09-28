@@ -7,29 +7,38 @@ use Iannsp\PhpWar\Move as Move;
 /*
 * Hit consider just the position, so, always win in Hit analizes
 * If a postions(x,Y) has another player and you Hit this position
-* you win the position.    
+* you win the position.
 */
 class Hit
 {
+
+    /**
+     * @var Arena
+     */
     private $arena;
-    public function __construct($arena)
+
+    public function __construct(Arena $arena)
     {
         $this->arena = $arena;
     }
+
     public function analyze($playerName, Move $move)
     {
-        $feedback = new Feedback;
-        $coordinates = $move->getCoordenates();
-        $warPlace    = $this->arena->getArena();
-        if ($warPlace[$coordinates['x']][$coordinates['y']]=='.' ||
-            $warPlace[$coordinates['x']][$coordinates['y']]==$playerName
-        ){
+        $feedback = new Feedback();
+        $warPlace = $this->arena->getArena();
+
+        list($x, $y) = array_values($move->getCoordenates());
+
+        $delta = isset($warPlace[$x][$y]) ? $warPlace[$x][$y] : null;
+
+        if ($delta == '.' || $delta == $playerName){
             $feedback->add(Feedback::WIN, $move);
         }
-        if ($warPlace[$coordinates['x']][$coordinates['y']]!='.' && 
-            $warPlace[$coordinates['x']][$coordinates['y']]!=$playerName){
+
+        if ($delta != '.' && $delta != $playerName){
             $feedback->add(Feedback::NEUTRALIZED, $move);
         }
+
         return $feedback;
     }
 }
