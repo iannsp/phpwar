@@ -21,13 +21,13 @@ class Hit
         $feedback = new Feedback;
         $coordinates = $move->getCoordenates();
         $warPlace    = $this->arena->getArena();
-        if ($warPlace[$coordinates['x']][$coordinates['y']]=='.' ||
-            $warPlace[$coordinates['x']][$coordinates['y']]==$playerName
+        if (isset($warPlace[$coordinates['x']][$coordinates['y']])&& ($warPlace[$coordinates['x']][$coordinates['y']]=='.' ||
+            $warPlace[$coordinates['x']][$coordinates['y']]==$playerName)
         ){
             $feedback->add(Feedback::WIN, $move);
         }
-        if ($warPlace[$coordinates['x']][$coordinates['y']]!='.' && 
-            $warPlace[$coordinates['x']][$coordinates['y']]!=$playerName){
+        if (isset($warPlace[$coordinates['x']][$coordinates['y']]) && ($warPlace[$coordinates['x']][$coordinates['y']]!='.' && 
+            $warPlace[$coordinates['x']][$coordinates['y']]!=$playerName)){
             $feedback->add(Feedback::NEUTRALIZED, $move);
         }
         return $feedback;
