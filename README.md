@@ -5,6 +5,8 @@ Code War php
 
 PHPWar is a simple programming game where you develop your player and put this in the arena to fight against other players.
 
+[https://www.youtube.com/watch?v=WJ_JycDmAJ0](You can watch a game of two P1 Player into a 10X10 arena here)
+
 Each game has an Arena and the dimension of the arena can set with:
 
      <?php
