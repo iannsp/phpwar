@@ -10,7 +10,6 @@ class Arena
     private $dimension = null;
     private $arena = array();
     private $playAnalizes = array();
-
     public function __construct(Geometry\Cartesian\Point $arenaLimits, array $scoreStrategy = array())
     {
         $this->dimension = $arenaLimits;
@@ -50,10 +49,6 @@ class Arena
             $m = $neutralized->getCoordenates();
             $this->arena[$m['x']][$m['y']]= '.';
         }
-/*
-       $m = $move->getCoordenates();
-       $this->arena[$m['x']][$m['y']]= $id;
-*/
        return $feedback;
     }
 
