@@ -32,7 +32,6 @@ class Neibor
             isset($warPlace[$x][$y-1]) ? $warPlace[$x][$y-1] : null, // center bootom
             isset($warPlace[$x+1][$y-1]) ? $warPlace[$x+1][$y-1] : null // right bottom
         );
-//        foreach ($warPlace as $place){var_dump(implode('', $place));};
         $rEnd = array();
         foreach ($result as $idx=>$r){
             if (!is_null($r))
